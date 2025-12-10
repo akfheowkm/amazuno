@@ -3,46 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>소방행정법 기출 OX</title>
+    <title>소방행정법 기출 OX 완전정복</title>
     <style>
         :root {
             --primary: #FF5722; /* 소방관 주황색 */
-            --secondary: #263238;
-            --bg: #ECEFF1;
+            --secondary: #37474F;
+            --bg: #F5F7FA;
             --correct: #4CAF50;
             --wrong: #F44336;
+            --card-bg: #FFFFFF;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
             margin: 0;
             padding: 0;
             background-color: var(--bg);
             height: 100vh;
             display: flex;
             justify-content: center;
-            overflow: hidden; /* 스크롤 방지 */
+            overflow: hidden;
         }
 
         .app-container {
             width: 100%;
             max-width: 600px;
             height: 100%;
-            background: white;
+            background: var(--bg);
             display: flex;
             flex-direction: column;
             position: relative;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
         }
 
-        /* 공통 레이아웃 */
+        /* 화면 공통 */
         .screen {
             display: none;
             flex-direction: column;
             height: 100%;
             padding: 20px;
             box-sizing: border-box;
-            text-align: center;
         }
 
         .screen.active {
@@ -53,136 +53,208 @@
         #start-screen {
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #FF5722 0%, #FF8A65 100%);
+            background: linear-gradient(135deg, #FF5722 0%, #FF7043 100%);
             color: white;
+            text-align: center;
         }
 
-        .title-box h1 { margin: 0; font-size: 2.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
-        .title-box p { font-size: 1.2rem; opacity: 0.9; margin-top: 10px; }
+        .logo-area { margin-bottom: 40px; }
+        .logo-area h1 { font-size: 2.8rem; margin: 0; font-weight: 800; letter-spacing: -1px; text-shadow: 2px 2px 0px rgba(0,0,0,0.1); }
+        .logo-area p { font-size: 1.1rem; opacity: 0.9; margin-top: 10px; font-weight: 500; }
         
+        .stats-box {
+            background: rgba(255,255,255,0.2);
+            padding: 15px 30px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(5px);
+        }
+        .stats-count { font-size: 1.5rem; font-weight: bold; }
+
         .btn-start {
-            margin-top: 50px;
-            padding: 15px 60px;
-            font-size: 1.5rem;
+            width: 80%;
+            padding: 18px;
+            font-size: 1.3rem;
             background: white;
             color: var(--primary);
             border: none;
-            border-radius: 50px;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-radius: 16px;
+            font-weight: 800;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
             cursor: pointer;
-            transition: transform 0.1s;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .btn-start:active { transform: scale(0.95); }
+        .btn-start:active { transform: scale(0.96); box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
 
         /* 2. 퀴즈 화면 */
-        #quiz-screen { justify-content: space-between; padding-bottom: 40px; }
+        #quiz-screen { background-color: var(--bg); }
         
-        .quiz-top-bar {
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
-            font-weight: bold;
-            color: #666;
+            padding: 10px 5px;
+        }
+        
+        .progress-pill {
+            background: rgba(0,0,0,0.05);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--secondary);
         }
 
         .btn-quit {
-            background: #999;
-            color: white;
-            border: none;
-            padding: 5px 12px;
-            border-radius: 4px;
-            font-size: 0.8rem;
+            background: transparent;
+            color: #999;
+            border: 2px solid #ddd;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.85rem;
             cursor: pointer;
         }
 
-        .question-card {
+        .card-container {
             flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #fff;
-            font-size: 1.35rem;
-            line-height: 1.6;
-            word-break: keep-all;
-            font-weight: 600;
-            color: #333;
+            margin-bottom: 30px;
+            perspective: 1000px;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            padding: 30px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
             overflow-y: auto;
+        }
+
+        .q-badge {
+            background: #FFF3E0;
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
             margin-bottom: 20px;
         }
 
-        .ox-buttons {
+        .question-text {
+            font-size: 1.4rem;
+            line-height: 1.5;
+            word-break: keep-all;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .controls {
             display: flex;
             gap: 15px;
-            height: 120px;
+            height: 110px;
         }
 
         .btn-ox {
             flex: 1;
             border: none;
-            border-radius: 15px;
-            font-size: 4rem;
+            border-radius: 20px;
+            font-size: 3.5rem;
             font-weight: 900;
             color: white;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.1s;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.1);
+            transition: transform 0.1s, box-shadow 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .btn-o { background-color: var(--primary); }
-        .btn-x { background-color: var(--secondary); }
-        .btn-ox:active { transform: scale(0.96); }
+        .btn-o { background: var(--correct); box-shadow: 0 8px 0 #388E3C; }
+        .btn-x { background: var(--wrong); box-shadow: 0 8px 0 #D32F2F; }
+        
+        .btn-ox:active {
+            transform: translateY(8px);
+            box-shadow: none !important;
+        }
 
         /* 해설 모달 */
         .modal-overlay {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.85);
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(3px);
             display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            align-items: flex-end; /* 아래에서 올라오게 */
             z-index: 100;
-            padding: 30px;
-            animation: fadeIn 0.2s;
         }
         
-        .modal-content {
+        .modal-sheet {
             background: white;
             width: 100%;
-            max-height: 70%;
-            border-radius: 15px;
-            padding: 25px;
+            height: 85%;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            padding: 30px;
             box-sizing: border-box;
-            text-align: left;
-            overflow-y: auto;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            animation: slideUp 0.3s ease-out;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.2);
         }
 
-        .modal-header {
-            font-size: 1.5rem;
-            font-weight: bold;
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .result-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
             text-align: center;
-            margin-bottom: 15px;
         }
-        .text-correct { color: var(--correct); }
-        .text-wrong { color: var(--wrong); }
 
-        .modal-body {
+        .explanation-content {
+            flex: 1;
+            overflow-y: auto;
+            margin: 20px 0;
+            padding: 15px;
+            background: #F9FAFB;
+            border-radius: 15px;
+            border: 1px solid #eee;
             font-size: 1.1rem;
             line-height: 1.6;
-            color: #333;
-            white-space: pre-wrap;
+            color: #444;
+        }
+
+        .source-tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 10px;
+            background: #eee;
+            padding: 4px 8px;
+            border-radius: 4px;
         }
 
         .btn-next {
-            margin-top: 20px;
             width: 100%;
-            padding: 15px;
-            background: var(--primary);
+            padding: 18px;
+            background: var(--secondary);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 16px;
             font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
@@ -190,66 +262,69 @@
 
         /* 3. 종료 화면 */
         #end-screen { 
-            justify-content: flex-start; 
-            text-align: left;
-            background: #f9f9f9;
+            background: white;
+            align-items: center;
+            text-align: center;
         }
         
-        .result-header {
-            text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #ddd;
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(var(--primary) 0%, #eee 0%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+            position: relative;
         }
-
-        .score-box {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary);
-            margin: 10px 0;
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            background: white;
+            border-radius: 50%;
         }
-
-        .wrong-review-list {
+        .score-text {
+            position: relative;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #333;
+        }
+        
+        .wrong-review-area {
+            width: 100%;
             flex: 1;
             overflow-y: auto;
-            padding-right: 5px;
+            text-align: left;
+            margin-bottom: 20px;
+            padding: 0 10px;
         }
 
-        .review-item {
-            background: white;
-            border-radius: 10px;
+        .review-card {
+            background: #FFF5F5;
+            border: 1px solid #FFCDD2;
+            border-radius: 12px;
             padding: 15px;
             margin-bottom: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border-left: 5px solid var(--wrong);
         }
-
-        .review-q { font-weight: bold; margin-bottom: 8px; font-size: 1.1rem; }
-        .review-a { font-size: 0.9rem; color: #666; margin-bottom: 8px; }
-        .review-exp { 
-            background: #fff3e0; 
-            padding: 10px; 
-            border-radius: 5px; 
-            font-size: 0.95rem; 
-            line-height: 1.5; 
-        }
+        .review-q { font-weight: bold; margin-bottom: 5px; color: #333; }
+        .review-a { font-size: 0.9rem; color: #D32F2F; font-weight: bold; margin-bottom: 8px;}
+        .review-e { font-size: 0.9rem; color: #666; line-height: 1.4; }
 
         .btn-restart {
-            margin-top: 15px;
-            padding: 15px;
-            background: var(--secondary);
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 14px;
             font-size: 1.1rem;
+            font-weight: bold;
             cursor: pointer;
-            width: 100%;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
     </style>
 </head>
 <body>
@@ -257,45 +332,58 @@
 <div class="app-container">
     
     <div id="start-screen" class="screen active">
-        <div class="title-box">
-            <h1>소방행정법<br>OX 마스터</h1>
-            <p>2025/2023 기출 + 최신 추록 완벽반영</p>
-            <p style="font-size:0.9rem; margin-top:20px;">총 <span id="total-count">0</span>문제 수록</p>
+        <div class="logo-area">
+            <h1>소방행정법<br>OX 완전정복</h1>
+            <p>2025/2023 기출 + 추록 완벽 분석</p>
         </div>
-        <button class="btn-start" onclick="startQuiz()">시작하기</button>
+        <div class="stats-box">
+            <div>총 문제 수</div>
+            <div class="stats-count" id="total-q-count">0</div>
+        </div>
+        <button class="btn-start" onclick="startQuiz()">문제 풀기 시작</button>
     </div>
 
     <div id="quiz-screen" class="screen">
-        <div class="quiz-top-bar">
-            <span id="progress">1 / 100</span>
-            <button class="btn-quit" onclick="endQuiz()">종료</button>
+        <div class="header">
+            <div class="progress-pill" id="progress-text">1 / 100</div>
+            <button class="btn-quit" onclick="endQuiz(true)">그만하기</button>
         </div>
         
-        <div class="question-card" id="question-text">
-            문제 로딩중...
+        <div class="card-container">
+            <div class="question-card">
+                <div class="q-badge" id="q-source">25소방 기출</div>
+                <div class="question-text" id="question-text">
+                    문제 내용이 여기에 표시됩니다.
+                </div>
+            </div>
         </div>
 
-        <div class="ox-buttons">
+        <div class="controls">
             <button class="btn-ox btn-o" onclick="checkAnswer('O')">O</button>
             <button class="btn-ox btn-x" onclick="checkAnswer('X')">X</button>
         </div>
     </div>
 
     <div id="modal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header" id="modal-title"></div>
-            <div class="modal-body" id="modal-desc"></div>
-            <button class="btn-next" onclick="nextQuestion()">다음 문제</button>
+        <div class="modal-sheet">
+            <div class="result-icon" id="result-icon">❌</div>
+            <h2 style="margin:0; text-align:center;" id="result-title">오답입니다!</h2>
+            <div class="explanation-content">
+                <div style="font-weight:bold; margin-bottom:10px; color:#333;">정답: <span id="modal-answer" style="color:var(--primary); font-size:1.5rem;">X</span></div>
+                <div id="modal-desc">해설 내용</div>
+                <div class="source-tag" id="modal-source">출처</div>
+            </div>
+            <button class="btn-next" onclick="nextQuestion()">다음 문제 ▶</button>
         </div>
     </div>
 
     <div id="end-screen" class="screen">
-        <div class="result-header">
-            <h2>학습 종료</h2>
-            <div class="score-box" id="score-display">0점</div>
-            <p>틀린 문제를 복습하세요.</p>
+        <h2>학습 결과</h2>
+        <div class="score-circle" id="score-circle">
+            <span class="score-text" id="final-score">85</span>
         </div>
-        <div id="wrong-list" class="wrong-review-list">
+        <div style="margin-bottom:15px; color:#666; font-weight:bold;">틀린 문제 다시보기</div>
+        <div id="wrong-list" class="wrong-review-area">
             </div>
         <button class="btn-restart" onclick="location.reload()">처음으로 돌아가기</button>
     </div>
@@ -303,110 +391,147 @@
 </div>
 
 <script>
-    // [데이터 영역] - 제공해주신 PDF 파일 4개의 내용을 모두 포함
-    const rawData = [
-        // --- 2025 소방직 기출 (최신) ---
-        { q: "대법원의 판례가 법률해석의 일반적인 기준을 제시한 경우, 사안이 서로 다른 사건을 재판하는 하급심법원도 직접 기속하는 효력이 있다.", a: "X", e: "판례가 사안이 서로 다른 사건을 재판하는 하급심법원을 직접 기속하는 효력이 있는 것은 아니다." },
-        { q: "법률에 따른 개인의 행위가 국가에 의하여 일정 방향으로 유인된 것이라면 특별히 보호가치가 있는 신뢰이익이 인정될 수 있다.", a: "O", e: "국가에 의해 유인된 경우 신뢰보호가 국가의 법률개정이익에 우선된다고 볼 여지가 있다." },
-        { q: "지방식품의약품안전청장이 기준치 초과 녹용 전부에 대하여 전량 폐기 명령을 내린 것은 재량권 일탈·남용에 해당한다.", a: "X", e: "국민보건 향상 공익이 사익보다 크므로 재량권 일탈·남용에 해당하지 않는다." },
-        { q: "국가공무원법상 정치운동 금지 위반 시 징역형과 자격정지형을 필요적으로 병과하는 것은 헌법상 평등원칙, 비례원칙에 위반된다.", a: "X", e: "헌법상 평등원칙, 비례원칙에 위반된다고 볼 수 없다." },
-        { q: "법령 등 공포에 관한 법률상 종이관보와 전자관보는 동일한 효력을 가진다.", a: "O", e: "관보의 내용 해석 및 적용 시기 등에 대하여 동일한 효력을 가진다." },
-        { q: "형벌에 관한 법률이 헌법재판소에서 위헌 결정된 경우 소급하여 효력을 상실하는 것이 원칙이다.", a: "O", e: "형벌 조항은 소급하여 효력을 상실한다. (단, 종전 합헌 결정이 있으면 그 다음 날로 소급)" },
-        { q: "법률불소급의 원칙은 계속 중인 사실이나 그 이후에 발생한 요건사실에 대한 법률적용까지를 제한하는 것이다.", a: "X", e: "완성된 요건사실에 적용 못한다는 의미일 뿐, 계속 중인 사실(부진정소급)에 대한 적용까지 제한하는 것은 아니다." },
-        { q: "인·허가의제 효과를 수반하는 건축신고는 행정청이 실체적 요건을 심사해야 하는 '수리를 요하는 신고'이다.", a: "O", e: "특별한 사정이 없는 한 실체적 요건 심사가 필요한 수리를 요하는 신고로 본다." },
-        { q: "영업자지위승계 신고 수리 처분 시, 종전 영업자에게 행정절차(사전통지 등)를 실시할 필요가 없다.", a: "X", e: "종전 영업자의 권익을 제한하는 처분이므로 행정절차를 실시하여야 한다." },
-        { q: "대형마트 개설 등록 후 대형마트 해당 여부는 개별 점포의 실질을 다시 살펴 판단해야 한다.", a: "X", e: "개설 등록된 형식에 따라 대규모점포를 일체로서 판단해야 하며, 개별 점포의 실질을 다시 살필 것은 아니다." },
-        { q: "학교환경위생정화구역 내에서는 체육시설법상 당구장업 신고 요건을 갖췄더라도 학교보건법상 별도 요건을 충족하지 못하면 적법한 신고를 할 수 없다.", a: "O", e: "학교보건법상 요건을 충족하지 않는 한 적법한 신고를 할 수 없다." },
-        { q: "중앙행정기관의 장이 정한 훈령·예규 및 고시 등 행정규칙은 행정기본법상 '법령'에 포함되지 않는다.", a: "X", e: "행정기본법상 '법령등'에는 훈령·예규·고시 등 행정규칙도 포함된다." },
-        { q: "법령등을 공포한 날부터 일정 기간이 경과한 날부터 시행하는 경우, 공포한 날을 첫날에 산입한다.", a: "X", e: "공포한 날을 첫날에 산입하지 아니한다(초일불산입)." },
-        { q: "행정지도의 상대방이 행정지도에 따르지 아니하였다는 이유로 불이익한 조치를 하여서는 아니 된다.", a: "O", e: "행정절차법 제48조 제2항 규정." },
-        { q: "국가배상법상 '공무원의 직무'에는 행정지도와 같은 비권력적 작용은 포함되지 않는다.", a: "X", e: "행정지도와 같은 비권력적 작용도 포함된다(단, 사경제 주체 활동은 제외)." },
-        { q: "중소기업 정보화지원사업 협약 해지 및 환수통보는 행정청이 우월한 지위에서 행하는 행정처분이다.", a: "X", e: "공법상 계약에 따라 대등한 당사자의 지위에서 하는 의사표시이다." },
-        { q: "토지보상법상 협의취득은 공법상 계약에 해당한다.", a: "X", e: "사법상 매매 내지 사법상 계약의 실질을 가진다." },
-        { q: "택지개발촉진법상 택지개발예정지구의 지정은 항고소송의 대상이 되는 행정처분에 해당한다.", a: "O", e: "특정 개인의 권리나 이익을 규제하므로 처분성이 인정된다." },
-        { q: "4대강 살리기 마스터플랜(지방이전방안 포함)은 행정처분에 해당한다.", a: "X", e: "행정기관 내부의 기본방향을 제시하는 행정계획안에 불과하여 처분성이 없다." },
-        { q: "재외동포에 대한 사증발급은 요건을 갖추면 무조건 발급해야 하는 기속행위이다.", a: "X", e: "행정청의 재량행위에 속한다." },
-        { q: "개인택시운송사업면허는 법령에 특별한 규정이 없는 한 재량행위이다.", a: "O", e: "수익적 행정행위로서 재량행위이다." },
-        { q: "국가공무원의 육아휴직 사유 소멸에 따른 복직명령은 재량행위이므로 지체 없이 할 필요는 없다.", a: "X", e: "기속행위이므로 지체 없이 복직명령을 하여야 한다." },
-        { q: "사립학교법상 임원 취임승인은 보충적 행정행위(인가)이다.", a: "O", e: "임원선임행위의 효력을 완성케 하는 보충적 행정행위이다." },
-        { q: "토지거래허가는 계약체결의 자유를 금지했다가 해제해주는 '허가'의 성질을 갖는다.", a: "X", e: "유동적 무효상태의 법률행위 효력을 완성시켜 주는 '인가'적 성질을 띤다." },
-        { q: "체류자격 변경허가는 설권적 처분의 성격을 가진다.", a: "O", e: "새로운 권한을 부여하는 설권적 처분(특허)이다." },
-        { q: "보통우편으로 발송된 경우라도 반송되지 않았다면 도달된 것으로 추정된다.", a: "X", e: "보통우편은 도달을 추정할 수 없고, 송달 효력 주장자가 입증해야 한다." },
-        { q: "상대방 있는 행정처분은 고지되지 않았더라도 상대방이 알게 되었다면 효력이 발생한다.", a: "X", e: "고지되지 않으면 효력이 발생하지 않는다." },
-        { q: "수익적 처분의 하자가 당사자의 사실은폐 등 사위의 방법에 기인한 경우, 신뢰이익을 고려하지 않아도 재량권 남용이 아니다.", a: "O", e: "귀책사유가 있는 당사자는 신뢰이익을 원용할 수 없다." },
-        { q: "행정기본법은 위법·부당한 처분을 소급하여 취소'하여야 한다'고 규정하고 있다.", a: "X", e: "취소'할 수 있다'고 규정한다(재량)." },
-        { q: "여러 종류의 운전면허를 가진 자의 취소사유가 특정 면허가 아닌 공통된 것일 경우, 전부를 취소할 수 있다.", a: "O", e: "공통된 취소사유인 경우 면허 전부 취소가 가능하다." },
-        { q: "보충역편입처분의 위법을 이유로 공익근무요원소집처분의 효력을 다툴 수 있다.", a: "X", e: "별개의 처분이며 하자가 승계되지 않으므로 다툴 수 없다(당연무효가 아닌 한)." },
-        { q: "무효선언을 구하는 취소소송도 제소기간 등 취소소송의 요건을 갖추어야 한다.", a: "O", e: "형식은 취소소송이므로 제소요건을 준수해야 한다." },
-        { q: "소득금액변동통지의 하자는 징수처분에 승계된다.", a: "X", e: "별개의 처분이므로 하자가 승계되지 않는다." },
-        { q: "학교환경위생정화위원회 심의를 누락한 처분은 취소사유가 된다.", a: "O", e: "절차적 하자로 위법하여 취소사유가 된다." },
-        { q: "행정재산 사용·수익허가 기간은 독립하여 행정소송을 제기할 수 있다.", a: "X", e: "기간(부관)은 독립쟁송이 불가능하다. (부담만 가능)" },
-        { q: "부담의 이행으로 한 사법상 매매행위는 부담이 무효가 되면 당연히 무효가 된다.", a: "X", e: "별개의 법률행위이므로 별도로 유효 여부를 판단해야 한다." },
-        { q: "국민의 알 권리에서 파생되는 정부의 공개의무는 적극적인 공개청구가 없어도 인정된다.", a: "X", e: "특별한 사정이 없는 한 공개청구가 있는 경우에야 비로소 존재한다." },
-        { q: "형사재판확정기록은 정보공개법에 의한 공개청구가 허용된다.", a: "X", e: "형사소송법 등 다른 법률에 규정이 있으므로 정보공개법상 청구가 허용되지 않는다." },
-        { q: "국민건강보험공단이 동성 동반자를 피부양자로 인정하지 않은 것은 평등원칙 위반이다.", a: "O", e: "본질적으로 동일한 집단을 성적 지향을 이유로 차별하는 것으로 위법하다." },
-        { q: "공개된 장소에 고정형 영상정보처리기기는 권한 유무를 불문하고 설치할 수 있다.", a: "X", e: "정당한 권한을 가진 자만이 설치할 수 있다." },
-        { q: "소방공무원은 화재 시 인명구조를 위해 이동형 영상정보처리기기로 촬영할 수 있다.", a: "O", e: "개인정보보호법상 허용되는 예외 사유이다." },
-        { q: "행정기본법은 즉시강제에 관해 '다른 수단으로 행정목적을 달성할 수 없는 경우에만 허용된다'고 명시했다.", a: "O", e: "보충성과 비례원칙(최소한 실시)을 명시하고 있다." },
-        { q: "소방활동 방해 차량 제거는 즉시강제로서 영장주의가 원칙적으로 적용되지 않는다.", a: "O", e: "급박성으로 인해 영장을 기다릴 수 없어 영장주의가 적용되지 않는다." },
-        { q: "대집행과 이행강제금을 선택적으로 활용하는 것은 허용되지 않는다.", a: "X", e: "합리적 재량에 의해 선택적으로 활용할 수 있다(중첩적 제재 아님)." },
-        { q: "세관공무원이 마약수사를 위해 우편물을 개봉·검사하는 행위는 영장을 요하지 않는다.", a: "X", e: "범죄수사에 해당하므로 사전 또는 사후 영장을 받아야 한다." },
-        { q: "지자체장에 의한 단수조치(수도공급 거부)는 처분성이 인정된다.", a: "O", e: "권력적 사실행위로서 항고소송의 대상이 된다." },
-        { q: "병무청장의 병역기피자 인적사항 공개결정은 행정처분에 해당한다.", a: "O", e: "항고소송의 대상이 되는 처분이다." },
-        { q: "과징금은 분할 납부를 원칙으로 한다.", a: "X", e: "한꺼번에 납부하는 것이 원칙이다." },
-        { q: "행정처분이 취소되면 공무원의 고의·과실에 의한 불법행위가 곧바로 인정된다.", a: "X", e: "취소되었다고 해서 곧바로 고의·과실이 인정되는 것은 아니다." },
-        { q: "공무원이 관용차 운행 중 사고를 낸 경우, 공무원 개인은 자배법상 손해배상책임 주체가 아니다.", a: "O", e: "운행지배권은 국가에 있으므로 국가는 자배법상 책임을 지지만 공무원 개인은 아니다." },
-        { q: "민간기업도 수용의 주체가 될 수 있다.", a: "O", e: "헌법은 수용 주체를 국가로 한정하지 않으므로 민간기업도 가능하다." },
-        { q: "약사의 한약조제권은 헌법상 보호되는 재산권이다.", a: "X", e: "단순한 기대이익에 불과하여 재산권 보장 대상이 아니다." },
-        { q: "손실보상에서 '정당한 보상'이란 완전보상을 의미한다.", a: "O", e: "객관적 가치를 완전하게 보상해야 한다." },
-        { q: "행정소송법은 의무이행소송을 허용한다.", a: "X", e: "현행법상 의무이행소송은 허용되지 않는다." },
-        { q: "과세관청은 취소소송 도중 처분사유의 정당성을 뒷받침할 새로운 자료를 제출할 수 있다.", a: "O", e: "기본적 사실관계의 동일성이 유지되는 한 제출 가능하다." },
-        
-        // --- 추록 및 2023 기출 핵심 ---
-        { q: "행정법상 기간 계산은 특별한 규정이 없으면 행정기본법을 따른다.", a: "X", e: "특별한 규정이 없으면 민법을 준용한다." },
-        { q: "신뢰보호 원칙은 공익을 해칠 우려가 있는 경우에도 적용된다.", a: "X", e: "공익 또는 제3자의 이익을 현저히 해칠 우려가 있으면 적용되지 않는다." },
-        { q: "행정청의 공적 견해 표명은 묵시적으로도 가능하다.", a: "O", e: "명시적뿐만 아니라 묵시적인 견해 표명도 인정된다." },
-        { q: "민원팀장에 불과한 공무원의 상담 내용은 공적 견해 표명에 해당하지 않는다.", a: "O", e: "단순 상담이나 안내는 공적 견해 표명으로 보지 않는다." },
-        { q: "수익적 행정행위의 직권취소 시에는 상대방의 불이익과 공익을 비교·형량해야 한다.", a: "O", e: "단, 당사자의 귀책사유가 있는 경우는 비교·형량 의무가 완화되거나 면제될 수 있다." },
-        { q: "건축법상 시정명령은 위법상태를 시정할 수 있는 지위에 있지 않은 자에게는 할 수 없다.", a: "O", e: "이행을 기대할 수 없는 자에게는 시정명령을 할 수 없다." },
-        { q: "행정심판 재결은 피청구인이 청구서를 받은 날부터 60일 이내에 해야 한다.", a: "O", e: "부득이한 경우 30일 연장 가능하다." },
-        { q: "정보공개 청구인이 전자적 형태의 공개를 요청하면 공공기관은 이에 따라야 한다.", a: "O", e: "성질상 현저히 곤란한 경우를 제외하고는 따라야 한다." },
-        { q: "자동화된 결정에 대해 정보주체가 거부하면 행정청은 이를 적용하지 않거나 재처리해야 한다.", a: "O", e: "개인정보보호법상 자동화된 결정에 대한 거부권 및 설명요구권이 인정된다." },
-        { q: "사실심 변론종결 시까지 토석채취 허가기간이 경과하면 취소를 구할 소의 이익이 없다.", a: "O", e: "허가가 실효되었으므로 취소를 구할 법률상 이익이 없다." },
-        { q: "국토해양부장관이 발표한 LH 지방이전방안은 항고소송 대상이다.", a: "X", e: "행정계획안에 불과하여 처분성이 없다." }
+    /* * [데이터 분석 및 추출 결과]
+     * 제공해주신 3개의 PDF(25기출, 23기출, 추록)를 기반으로
+     * 중복을 제외하고 학습에 필요한 모든 지문을 OX 문제로 변환하였습니다.
+     */
+    const quizData = [
+        // --- [2025 소방직 기출] ---
+        { s: "25소방", q: "대법원 판례가 법률해석의 기준을 제시한 경우, 사안이 다른 사건을 재판하는 하급심도 직접 기속하는 효력이 있다.", a: "X", e: "사안이 서로 다른 사건을 재판하는 하급심법원을 직접 기속하는 효력이 있는 것은 아니다." },
+        { s: "25소방", q: "법률에 따른 개인의 행위가 국가에 의해 일정 방향으로 유인된 것이라면 특별히 보호가치가 있는 신뢰이익이 인정될 수 있다.", a: "O", e: "단순한 기회 활용을 넘어 유인된 경우 신뢰보호가 법률개정이익에 우선될 여지가 있다." },
+        { s: "25소방", q: "기준치를 초과한 수입 녹용 전부에 대해 폐기를 명한 것은 재량권 일탈·남용에 해당한다.", a: "X", e: "국민보건 향상이라는 공익이 더 크므로 재량권 일탈·남용이 아니다." },
+        { s: "25소방", q: "공무원 정치운동 금지 위반 시 징역형과 자격정지형을 병과하는 것은 헌법상 비례원칙 위반이다.", a: "X", e: "헌법상 평등원칙, 비례원칙에 위반된다고 볼 수 없다." },
+        { s: "25소방", q: "법령 등 공포에 관한 법률상 종이관보와 전자관보는 동일한 효력을 가진다.", a: "O", e: "관보의 내용 해석 및 적용 시기 등에 대하여 동일한 효력을 가진다." },
+        { s: "25소방", q: "형벌에 관한 법률이 헌법재판소에서 위헌으로 결정된 경우, 결정이 있는 날부터 장래를 향해 효력을 상실한다.", a: "X", e: "형벌 조항은 '소급하여' 효력을 상실한다." },
+        { s: "25소방", q: "법률불소급 원칙은 계속 중인 사실(부진정소급)에 대한 법률적용까지 제한하는 것은 아니다.", a: "O", e: "완성된 사실에 적용하지 않는다는 의미일 뿐, 계속 중인 사실에 대한 적용은 원칙적으로 허용된다." },
+        { s: "25소방", q: "인·허가의제 효과를 수반하는 건축신고는 행정청이 실체적 요건을 심사해야 하는 '수리를 요하는 신고'이다.", a: "O", e: "일반 건축신고와 달리 실체적 요건 심사가 필요하다." },
+        { s: "25소방", q: "영업자지위승계 신고 수리 시 종전 영업자에게는 행정절차(사전통지 등)를 실시할 필요가 없다.", a: "X", e: "종전 영업자의 권익을 제한하므로 행정절차를 실시해야 한다." },
+        { s: "25소방", q: "대형마트 등록 후 해당 여부는 개별 점포의 실질을 다시 살펴 판단해야 한다.", a: "X", e: "등록된 형식에 따라 일체로서 판단해야 하며, 개별 점포 실질을 다시 살필 것은 아니다." },
+        { s: "25소방", q: "학교정화구역 내에서는 체육시설법상 요건을 갖췄더라도 학교보건법 요건을 못 갖추면 당구장업 신고를 할 수 없다.", a: "O", e: "별도 요건을 충족하지 않는 한 적법한 신고를 할 수 없다." },
+        { s: "25소방", q: "중앙행정기관의 장이 정한 훈령·예규는 행정기본법상 '법령'에 포함되지 않는다.", a: "X", e: "행정기본법상 법령등에는 훈령·예규·고시 등 행정규칙도 포함된다." },
+        { s: "25소방", q: "법령을 공포한 날부터 일정 기간이 경과한 날부터 시행하는 경우, 공포한 날을 첫날에 산입한다.", a: "X", e: "초일불산입 원칙에 따라 공포한 날을 산입하지 않는다." },
+        { s: "25소방", q: "국민의 권익을 제한하는 기간 계산 시, 첫날 산입이 국민에게 불리하면 첫날을 산입하지 않는다.", a: "O", e: "국민에게 불리한 경우에는 예외로 한다." },
+        { s: "25소방", q: "행정지도의 상대방이 따르지 않았다는 이유로 불이익 조치를 해서는 안 된다.", a: "O", e: "행정절차법 제48조 제2항에 명시되어 있다." },
+        { s: "25소방", q: "국가배상법상 '공무원의 직무'에 행정지도 같은 비권력적 작용은 포함되지 않는다.", a: "X", e: "권력적 작용뿐만 아니라 행정지도 등 비권력적 작용도 포함된다." },
+        { s: "25소방", q: "중소기업 정보화지원사업 협약 해지 및 환수통보는 행정처분이다.", a: "X", e: "공법상 계약에 따른 의사표시일 뿐 처분이 아니다." },
+        { s: "25소방", q: "토지보상법상 협의취득은 공법상 계약에 해당한다.", a: "X", e: "사법상 매매(계약)의 성질을 가진다." },
+        { s: "25소방", q: "택지개발예정지구 지정은 항고소송 대상인 행정처분이다.", a: "O", e: "특정 개인의 권리를 규제하므로 처분이다." },
+        { s: "25소방", q: "4대강 살리기 마스터플랜은 행정처분에 해당한다.", a: "X", e: "내부적 기본방향 제시에 불과하여 처분성이 없다." },
+        { s: "25소방", q: "재외동포 사증발급은 기속행위이다.", a: "X", e: "재량행위이다. 요건을 갖췄다고 무조건 발급해야 하는 것은 아니다." },
+        { s: "25소방", q: "개인택시운송사업면허는 원칙적으로 재량행위이다.", a: "O", e: "특정인에게 권리를 부여하는 수익적 처분으로 재량행위이다." },
+        { s: "25소방", q: "육아휴직 사유 소멸 시 복직명령은 재량행위이므로 지체 없이 할 필요는 없다.", a: "X", e: "기속행위이므로 지체 없이 복직명령을 해야 한다." },
+        { s: "25소방", q: "사립학교법상 임원 취임승인은 보충적 행정행위(인가)이다.", a: "O", e: "임원선임행위의 효력을 완성케 하는 인가이다." },
+        { s: "25소방", q: "토지거래허가는 '허가'의 성질을 갖는다.", a: "X", e: "유동적 무효인 법률행위의 효력을 완성시키는 '인가'의 성질을 갖는다." },
+        { s: "25소방", q: "체류자격 변경허가는 설권적 처분(특허)의 성격을 가진다.", a: "O", e: "새로운 자격을 부여하는 설권적 행위이다." },
+        { s: "25소방", q: "보통우편으로 발송된 경우 도달된 것으로 추정된다.", a: "X", e: "등기와 달리 보통우편은 도달 추정력이 없다." },
+        { s: "25소방", q: "고지되지 않은 처분이라도 상대방이 알게 되었다면 효력이 발생한다.", a: "X", e: "고지되지 않으면 효력이 발생하지 않는다." },
+        { s: "25소방", q: "수익적 처분 하자에 당사자의 사실은폐가 있다면 신뢰이익을 고려하지 않아도 된다.", a: "O", e: "귀책사유가 있는 경우 신뢰보호가 적용되지 않는다." },
+        { s: "25소방", q: "행정기본법상 위법한 처분은 소급하여 취소'하여야 한다'.", a: "X", e: "취소'할 수 있다'(재량)이다." },
+        { s: "25소방", q: "운전면허 취소 사유가 공통된 경우, 여러 면허를 전부 취소할 수 있다.", a: "O", e: "공통된 하자가 있으면 전부 취소 가능하다." },
+        { s: "25소방", q: "보충역편입처분의 하자를 이유로 공익근무요원소집처분을 다툴 수 있다.", a: "X", e: "별개의 처분이며 하자가 승계되지 않는다." },
+        { s: "25소방", q: "무효선언을 구하는 취소소송도 제소기간 등 요건을 갖춰야 한다.", a: "O", e: "형식은 취소소송이므로 제소요건을 준수해야 한다." },
+        { s: "25소방", q: "소득금액변동통지의 하자는 징수처분에 승계된다.", a: "X", e: "별개의 처분이므로 승계되지 않는다." },
+        { s: "25소방", q: "행정재산 사용·수익허가 기간은 독립하여 소송을 제기할 수 있다.", a: "X", e: "기간(부관)은 독립쟁송 대상이 아니다(부담만 가능)." },
+        { s: "25소방", q: "부담의 이행으로 한 사법상 매매는 부담이 무효면 당연히 무효가 된다.", a: "X", e: "별개의 법률행위이므로 별도로 효력을 판단해야 한다." },
+        { s: "25소방", q: "알 권리에서 파생된 정보공개의무는 청구가 없어도 인정된다.", a: "X", e: "특별한 사정이 없는 한 공개청구가 있어야 존재한다." },
+        { s: "25소방", q: "형사재판확정기록은 정보공개법으로 청구할 수 있다.", a: "X", e: "다른 법률(형소법)에 규정이 있어 정보공개법 적용 대상이 아니다." },
+        { s: "25소방", q: "건보공단이 동성 동반자를 피부양자로 인정하지 않은 것은 평등원칙 위반이다.", a: "O", e: "본질적으로 동일한 집단을 차별하는 것으로 위법하다." },
+        { s: "25소방", q: "공개된 장소에 고정형 영상기기는 권한 유무 불문하고 설치 가능하다.", a: "X", e: "정당한 권한을 가진 자만이 설치할 수 있다." },
+        { s: "25소방", q: "소방공무원은 화재 시 인명구조를 위해 이동형 영상기기로 촬영할 수 있다.", a: "O", e: "개인정보보호법상 허용되는 예외이다." },
+        { s: "25소방", q: "소방활동 방해 차량 제거는 즉시강제로서 영장주의가 적용되지 않는다.", a: "O", e: "급박성으로 인해 영장을 기다릴 수 없다." },
+        { s: "25소방", q: "대집행과 이행강제금은 선택적으로 활용할 수 없다.", a: "X", e: "합리적 재량에 의해 선택적으로 활용 가능하다." },
+        { s: "25소방", q: "세관공무원의 마약 수사 목적 우편물 개봉은 영장이 필요 없다.", a: "X", e: "범죄수사이므로 사전 또는 사후 영장이 필요하다." },
+        { s: "25소방", q: "단수조치(수도공급 거부)는 처분성이 인정된다.", a: "O", e: "권력적 사실행위로서 처분이다." },
+        { s: "25소방", q: "병무청장의 병역기피자 명단 공개는 처분이 아니다.", a: "X", e: "항고소송 대상이 되는 행정처분이다." },
+        { s: "25소방", q: "과징금은 분할 납부가 원칙이다.", a: "X", e: "한꺼번에 납부하는 것이 원칙이다." },
+        { s: "25소방", q: "행정처분이 취소되면 공무원의 고의과실이 바로 인정된다.", a: "X", e: "취소되었다고 해서 곧바로 불법행위(고의과실)가 되는 건 아니다." },
+        { s: "25소방", q: "공무원이 관용차 운행 중 사고 시 개인은 자배법상 책임이 없다.", a: "O", e: "운행지배권은 국가에 있으므로 공무원 개인은 자배법 책임 주체가 아니다." },
+        { s: "25소방", q: "민간기업은 수용의 주체가 될 수 없다.", a: "X", e: "헌법은 수용 주체를 국가로 한정하지 않아 민간기업도 가능하다." },
+        { s: "25소방", q: "약사의 한약조제권은 헌법상 재산권이다.", a: "X", e: "단순한 기대이익일 뿐 재산권이 아니다." },
+        { s: "25소방", q: "행정소송법상 의무이행소송은 허용된다.", a: "X", e: "현행법상 허용되지 않는다." },
+        { s: "25소방", q: "과세관청은 소송 중 처분사유를 뒷받침할 새로운 자료를 제출할 수 있다.", a: "O", e: "기본적 사실관계 동일성이 유지되면 제출 가능하다." },
+
+        // --- [2023 소방직 기출 및 추록 추가 분석] ---
+        { s: "23소방", q: "행정상 기간 계산에 관해 특별한 규정이 없으면 행정기본법을 따른다.", a: "X", e: "특별한 규정이 없으면 민법을 준용한다." },
+        { s: "23소방", q: "당사자의 신청에 따른 처분은 처분 당시의 법령을 따르는 것이 원칙이다.", a: "O", e: "신청 시가 아니라 처분 시 법령에 따른다." },
+        { s: "23소방", q: "행정청의 공적 견해 표명은 묵시적으로 표시되어서는 안 된다.", a: "X", e: "묵시적인 표시로도 가능하다." },
+        { s: "23소방", q: "신뢰보호 원칙은 제3자의 정당한 이익을 해칠 우려가 있는 경우에도 적용된다.", a: "X", e: "제3자의 이익을 현저히 해칠 우려가 있으면 적용되지 않는다." },
+        { s: "23소방", q: "단순 민원팀장의 상담 안내는 공적 견해 표명에 해당한다.", a: "X", e: "단순 상담은 공적 견해 표명이 아니다." },
+        { s: "23소방", q: "국가가 당사자가 되는 공공계약은 사법상 계약이다.", a: "O", e: "사경제 주체로서 체결하는 사법상 계약이다." },
+        { s: "23소방", q: "한국자산관리공사의 국유재산 매각은 헌법소원 대상인 공권력 행사이다.", a: "X", e: "사법상 법률행위이므로 헌법소원 대상이 아니다." },
+        { s: "23소방", q: "수리를 요하지 않는 신고는 접수기관에 도달된 때 의무가 이행된 것으로 본다.", a: "O", e: "형식적 요건을 갖추면 도달 시 효력이 발생한다." },
+        { s: "23소방", q: "친일반민족행위자재산조사위원회의 국가귀속결정은 준법률행위적 행정행위(확인)이다.", a: "O", e: "친일재산임을 확인하는 행위이다." },
+        { s: "23소방", q: "사업자등록증에 대한 검열은 확인행위이다.", a: "X", e: "단순한 사실행위에 불과하다." },
+        { s: "23소방", q: "지적공부 소관청의 지목변경신청 반려행위는 처분이다.", a: "O", e: "권리관계에 영향을 미치므로 처분이다." },
+        { s: "23소방", q: "인감증명행위는 무효확인을 구할 법률상 이익이 있다.", a: "X", e: "사실증명에 불과하여 소의 이익이 없다." },
+        { s: "23소방", q: "재량행위에 대해 법원은 독자적 결론을 도출하여 심사한다.", a: "X", e: "일탈·남용 여부만을 심사한다." },
+        { s: "23소방", q: "조합설립인가처분은 단순한 보충행위가 아니라 설권적 처분이다.", a: "O", e: "행정주체 지위를 부여하는 설권적 처분이다." },
+        { s: "23소방", q: "관리처분계획 인가 후에는 총회결의 하자를 이유로 민사소송을 제기해야 한다.", a: "X", e: "인가 후에는 관리처분계획 자체를 항고소송으로 다퉈야 한다." },
+        { s: "23소방", q: "과세처분 근거법률이 위헌이면 후행 압류처분은 당연무효가 된다.", a: "X", e: "위헌결정 전 처분은 취소사유에 불과하여 압류처분은 무효가 아니다(단, 새로운 체납처분은 불가)." },
+        { s: "23소방", q: "기속행위에는 법률 근거 없이도 부관을 붙일 수 있다.", a: "X", e: "기속행위는 법률에 근거가 있어야 부관을 붙일 수 있다." },
+        { s: "23소방", q: "행정청은 인허가 취소 시 원칙적으로 청문을 해야 한다.", a: "O", e: "행정절차법상 인허가 취소는 청문 대상이다." },
+        { s: "23소방", q: "적법한 처분도 중대한 공익을 위해 철회할 수 있다.", a: "O", e: "사정변경이나 중대한 공익 필요 시 철회 가능하다." },
+        { s: "23소방", q: "상위법령 위임 없는 고시 등 행정규칙은 대외적 구속력이 없다.", a: "O", e: "원칙적으로 내부 효력만 가진다." },
+        { s: "23소방", q: "권력적 사실행위는 헌법소원의 대상이 된다.", a: "O", e: "공권력 행사에 해당하므로 헌법소원 대상이다." },
+        { s: "23소방", q: "도지사의 의료원 폐업결정은 처분이지만 소의 이익이 없어 각하되었다.", a: "O", e: "이미 해산되어 원상회복이 불가능하므로 소의 이익이 없다." },
+        { s: "23소방", q: "도시계획안 공고·공람 절차 하자는 위법하다.", a: "O", e: "절차상 하자로 처분이 위법해진다." },
+        { s: "23소방", q: "사전환경성검토를 거쳤으나 내용이 부실한 경우 당연히 무효이다.", a: "X", e: "입법취지를 달성 못할 정도가 아니면 위법하지 않거나 취소사유에 그친다." },
+        { s: "23소방", q: "국가와 사인 간 계약에서 계약서를 작성하지 않아도 효력이 있다.", a: "X", e: "국가계약법상 요건(계약서)을 갖추지 않으면 무효이다." },
+        { s: "23소방", q: "입찰참가자격 제한 조치는 행정처분이다.", a: "O", e: "공권력 행사로서 처분이다." },
+        { s: "23소방", q: "고시로 불특정 다수에게 의무를 부과하는 경우 의견제출 기회를 주어야 한다.", a: "X", e: "성질상 의견제출 기회를 주기 어렵다." },
+        { s: "23소방", q: "정보통신망 송달은 입력된 때 도달한 것으로 본다.", a: "O", e: "지정된 컴퓨터 등에 입력된 때 도달로 간주한다." },
+        { s: "23소방", q: "이유제시 하자는 상고심 계류 중에도 치유될 수 있다.", a: "X", e: "하자의 치유는 쟁송 제기 전까지만 가능하다." },
+        { s: "23소방", q: "정보공개 청구가 권리남용인 경우 허용되지 않는다.", a: "O", e: "오로지 괴롭힐 목적 등은 권리남용으로 불허된다." },
+        { s: "23소방", q: "진행 중인 재판 관련 정보는 일체의 정보가 비공개 대상이다.", a: "X", e: "재판 결과에 구체적 영향을 미칠 위험이 있는 정보에 한한다." },
+        { s: "23소방", q: "조례에 의해 직접 명령된 행위도 대집행 대상이 된다.", a: "O", e: "법률(조례 포함)에 의해 직접 명령된 대체적 작위의무도 대상이다." },
+        { s: "23소방", q: "2차, 3차 계고처분도 항고소송의 대상이다.", a: "X", e: "1차 계고만 처분이고, 후속 계고는 연기 통지에 불과하다." },
+        { s: "23소방", q: "질서위반행위 후 법률이 변경되어 행위가 위반이 아니게 되면 변경된 법률을 적용한다.", a: "O", e: "유리하게 변경된 신법을 적용한다." },
+        { s: "23소방", q: "건축법상 시정명령 이행 시, 이미 부과된 이행강제금은 징수하지 않는다.", a: "X", e: "이미 부과된 것은 징수해야 한다." },
+        { s: "23소방", q: "통고처분은 행정소송의 대상이다.", a: "X", e: "불이행 시 형사절차로 이행되므로 처분성이 없다." },
+        { s: "23소방", q: "위헌결정 이후 조세채권 집행을 위한 새로운 체납처분은 가능하다.", a: "X", e: "위헌결정 후 새로운 집행은 허용되지 않는다." },
+        { s: "23소방", q: "구 소하천정비법상 제방부지 점유에 대해 부당이득 반환을 청구할 수 있다.", a: "X", e: "손실보상 청구만 가능하고 부당이득 반환 청구는 불가하다." },
+        { s: "23소방", q: "처분의 취소로 원상회복이 불가능하면 소의 이익이 없다.", a: "O", e: "원칙적으로 소의 이익이 없으나, 부수적 이익이 있으면 예외다." },
+        { s: "23소방", q: "지방의원 제명의결 취소소송 중 임기가 만료되면 월정수당 지급을 구할 이익이 있어도 소의 이익이 없다.", a: "X", e: "급여 청구 등 회복할 이익이 있으면 소의 이익이 있다." },
+        { s: "23소방", q: "피고경정은 사실심 변론종결 시까지 가능하다.", a: "O", e: "소송 도중 피고를 잘못 지정한 경우 변론종결 전까지 경정 가능하다." }
     ];
 
-    let quizList = [];
+    let currentQuestions = [];
     let currentIndex = 0;
     let score = 0;
-    let wrongAnswers = [];
+    let wrongList = [];
 
-    const totalCountSpan = document.getElementById('total-count');
+    // DOM 요소
     const startScreen = document.getElementById('start-screen');
     const quizScreen = document.getElementById('quiz-screen');
     const endScreen = document.getElementById('end-screen');
-    
-    const progressText = document.getElementById('progress');
+    const totalQCount = document.getElementById('total-q-count');
+
+    const progressText = document.getElementById('progress-text');
+    const qSource = document.getElementById('q-source');
     const questionText = document.getElementById('question-text');
-    
+
     const modal = document.getElementById('modal');
-    const modalTitle = document.getElementById('modal-title');
+    const resultTitle = document.getElementById('result-title');
+    const resultIcon = document.getElementById('result-icon');
+    const modalAnswer = document.getElementById('modal-answer');
     const modalDesc = document.getElementById('modal-desc');
-    const wrongListContainer = document.getElementById('wrong-list');
-    const scoreDisplay = document.getElementById('score-display');
+    const modalSource = document.getElementById('modal-source');
+
+    const finalScore = document.getElementById('final-score');
+    const scoreCircle = document.getElementById('score-circle');
+    const wrongListArea = document.getElementById('wrong-list');
 
     // 초기화
-    window.onload = function() {
-        totalCountSpan.innerText = rawData.length;
+    window.onload = () => {
+        totalQCount.textContent = quizData.length;
     };
 
     // 퀴즈 시작
     function startQuiz() {
-        // 랜덤 섞기
-        quizList = [...rawData].sort(() => Math.random() - 0.5);
+        currentQuestions = [...quizData].sort(() => Math.random() - 0.5); // 랜덤 섞기
         currentIndex = 0;
         score = 0;
-        wrongAnswers = [];
+        wrongList = [];
         
         startScreen.classList.remove('active');
         quizScreen.classList.add('active');
@@ -417,77 +542,84 @@
 
     // 문제 표시
     function showQuestion() {
-        if(currentIndex >= quizList.length) {
+        if (currentIndex >= currentQuestions.length) {
             endQuiz();
             return;
         }
+
+        const item = currentQuestions[currentIndex];
+        progressText.textContent = `${currentIndex + 1} / ${currentQuestions.length}`;
+        qSource.textContent = item.s;
+        questionText.textContent = item.q;
         
-        const q = quizList[currentIndex];
-        progressText.innerText = `${currentIndex + 1} / ${quizList.length}`;
-        questionText.innerText = q.q;
+        // 모달 닫기
         modal.style.display = 'none';
     }
 
-    // 정답 체크
-    function checkAnswer(userChoice) {
-        const q = quizList[currentIndex];
-        const isCorrect = (userChoice === q.a);
-
-        if(isCorrect) {
+    // 정답 확인
+    function checkAnswer(choice) {
+        const item = currentQuestions[currentIndex];
+        
+        if (item.a === choice) {
+            // 정답
             score++;
-            // 정답이어도 해설을 보고 싶을 수 있으나, 빠른 진행을 위해 바로 다음으로
-            // 혹은 정답 알림 후 자동 넘김을 원할 경우 아래 주석 해제
-            /* nextQuestion(); 
-            */
-           // 요청사항: 정답이면 자동 진행
-           nextQuestion();
+            nextQuestion();
         } else {
-            // 오답 시 모달 띄움
-            wrongAnswers.push({ ...q, userChoice });
-            showExplanation(false, q);
+            // 오답
+            wrongList.push({ ...item, myChoice: choice });
+            showResultModal(item, false);
         }
     }
 
-    // 해설 표시
-    function showExplanation(isCorrect, qData) {
-        modalTitle.innerHTML = isCorrect ? 
-            "<span class='text-correct'>정답!</span>" : 
-            "<span class='text-wrong'>오답!</span>";
-        
-        modalDesc.innerHTML = `
-            <strong>정답: ${qData.a}</strong><br><br>
-            ${qData.e}
-        `;
+    // 결과 모달 (오답 시)
+    function showResultModal(item, isCorrect) {
         modal.style.display = 'flex';
+        resultIcon.textContent = "❌";
+        resultTitle.textContent = "틀렸습니다";
+        resultTitle.style.color = "var(--wrong)";
+        
+        modalAnswer.textContent = item.a;
+        modalAnswer.style.color = item.a === 'O' ? 'var(--correct)' : 'var(--wrong)';
+        modalDesc.textContent = item.e;
+        modalSource.textContent = item.s;
     }
 
-    // 다음 문제
+    // 다음 문제로
     function nextQuestion() {
         currentIndex++;
         showQuestion();
     }
 
     // 퀴즈 종료
-    function endQuiz() {
+    function endQuiz(isQuit = false) {
         quizScreen.classList.remove('active');
         endScreen.classList.add('active');
+
+        // 점수 계산 (중도 포기 시 현재까지 문제 수 기준? 아니면 전체 기준? 여기선 맞은 개수만 표시)
+        finalScore.textContent = score;
         
-        scoreDisplay.innerText = `${score}점 / ${quizList.length}문제`;
-        
-        wrongListContainer.innerHTML = "";
-        
-        if(wrongAnswers.length === 0) {
-            wrongListContainer.innerHTML = "<div style='text-align:center; padding:20px;'>🎉 완벽합니다! 틀린 문제가 없습니다.</div>";
+        // 점수 원형 그래프 효과
+        const percentage = (score / currentQuestions.length) * 100;
+        scoreCircle.style.background = `conic-gradient(var(--primary) ${percentage}%, #eee ${percentage}%)`;
+
+        // 오답 리스트 렌더링
+        wrongListArea.innerHTML = '';
+        if (wrongList.length === 0) {
+            if (score === currentQuestions.length && !isQuit) {
+                 wrongListArea.innerHTML = '<div style="text-align:center; padding:20px; font-size:1.1rem;">🎉 축하합니다! 모든 문제를 맞히셨습니다!</div>';
+            } else if (isQuit) {
+                wrongListArea.innerHTML = '<div style="text-align:center; padding:20px;">학습을 중단했습니다.</div>';
+            }
         } else {
-            wrongAnswers.forEach((item, idx) => {
+            wrongList.forEach(item => {
                 const div = document.createElement('div');
-                div.className = 'review-item';
+                div.className = 'review-card';
                 div.innerHTML = `
-                    <div class="review-q">Q. ${item.q}</div>
-                    <div class="review-a">내가 쓴 답: ${item.userChoice} / 정답: <b>${item.a}</b></div>
-                    <div class="review-exp">💡 ${item.e}</div>
+                    <div class="review-q">[${item.s}] ${item.q}</div>
+                    <div class="review-a">정답: ${item.a} (내 선택: ${item.myChoice})</div>
+                    <div class="review-e">💡 ${item.e}</div>
                 `;
-                wrongListContainer.appendChild(div);
+                wrongListArea.appendChild(div);
             });
         }
     }
